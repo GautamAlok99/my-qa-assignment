@@ -22,3 +22,25 @@ test('GET call - verify status 200 and user properties', async ({ request }) => 
     }
 });
 
+test('POST call - verify status 201 and user properties', async ({ request }) => {
+    const userPayload = {
+        name: 'morpheus',
+        job: 'leader',
+    };
+
+    const response = await request.post(`${BASE_URL}/api/users`, {
+        data: userPayload,
+    });
+
+    //Verify status 201
+    expect(response.status()).toBe(201);
+    const responseBody = await response.json();
+
+    //Verify response
+    expect(responseBody.name).toBe(userPayload.name);
+    expect(responseBody.job).toBe(userPayload.job);
+    expect(responseBody).toHaveProperty('id');
+    expect(responseBody).toHaveProperty('createdAt');
+});
+
+
