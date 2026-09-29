@@ -30,4 +30,18 @@ test('add to cart', async ({ page }) => {
     await expect(cartBadge).toHaveText('2');
 });
 
+test('sort products by price low to high and verify lowest price first', async ({ page }) => {
+    // Sort products by "Price (low to high)"
+    await page.locator(productLocators.sortDropdown).selectOption({ label: 'Price (low to high)' });
 
+    // Verify the active sort option updated
+    await expect(page.locator(productLocators.activeOption)).toHaveText('Price (low to high)');
+
+    // Extract all product prices from the page , convert them into numbers
+    const priceTexts = await page.locator(productLocators.itemPrice).allTextContents();
+    const prices = priceTexts.map(text => parseFloat(text.replace('$', '')));
+
+    // Verify the first product displayed has the lowest price
+    const lowestPrice = Math.min(...prices);
+    expect(prices[0], 'Sorting failed : Products are not sorted by price low to high').toBe(lowestPrice);
+});
