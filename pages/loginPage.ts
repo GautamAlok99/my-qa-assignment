@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { urls } from '../utils/urls';
+import { urls } from '../Utils/urls';
 
 export class LoginPage {
     readonly page: Page;

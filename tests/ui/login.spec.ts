@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from '../../pages/loginPage';
-import {urls } from '../../utils/urls'
+import { LoginPage } from '../../pages/LoginPage';
+import { urls } from '../../Utils/urls.ts';
 import usersData from '../../test-data/users.json';
-import { loginLocators } from '../../utils/locator';
+import { productLocators } from '../../Utils/locator';
 
 test('standard user', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.login(usersData.standardUser.username, usersData.standardUser.password);
     await expect(page).toHaveURL(urls.inventoryPage);
-    const landingPage = await page.locator(loginLocators.header).textContent();
+    const landingPage = await page.locator(productLocators.header).textContent();
     expect(landingPage).toContain('Products');
     await page.close();
 });
