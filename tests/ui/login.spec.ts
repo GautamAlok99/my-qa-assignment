@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
-import { urls } from '../../Utils/urls.ts';
+import { urls } from '../../Utils/urls';
 import usersData from '../../test-data/users.json';
 import { productLocators } from '../../Utils/locator';
 
